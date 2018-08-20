@@ -28,47 +28,44 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+#include "Seeed_BME280.h"
+#include <Wire.h>
 
+BME280 bme280;
 
-void BMP280_setup()
+void setup()
 {
+  Serial.begin(9600);
   if(!bme280.init()){
-    //Serial.println("Device error!");
+    Serial.println("Device error!");
   }
 }
 
-void Update_BMP280()
+void loop()
 {
   float pressure;
-
-//  //get and print temperatures
-//  Serial.print("Temp: ");
-//  Serial.print(bme280.getTemperature());
-//  Serial.println("C");//The unit for  Celsius because original arduino don't support speical symbols
-//  
-//  //get and print atmospheric pressure data
-//  Serial.print("Pressure: ");
-//  Serial.print(pressure = bme280.getPressure());
-//  Serial.println("Pa");
-//
-//  //get and print altitude data
-//  Serial.print("Altitude: ");
-//  Serial.print(bme280.calcAltitude(pressure));
-//  Serial.println("m");
-//
-//  //get and print humidity data
-//  Serial.print("Humidity: ");
-//  Serial.print(bme280.getHumidity());
-//  Serial.println("%");
-//  
-//  Serial.println("\n");//add a line between output of different times.
-//  delay(1000);
   
-  bmp280_data[0] = bme280.getTemperature();
-  pressure = bme280.getPressure();
-  bmp280_data[1] = pressure;
-  bmp280_data[2] = bme280.calcAltitude(pressure);
-  bmp280_data[3] = bme280.getHumidity();
+  //get and print temperatures
+  Serial.print("Temp: ");
+  Serial.print(bme280.getTemperature());
+  Serial.println("C");//The unit for  Celsius because original arduino don't support speical symbols
+  
+  //get and print atmospheric pressure data
+  Serial.print("Pressure: ");
+  Serial.print(pressure = bme280.getPressure());
+  Serial.println("Pa");
 
+  //get and print altitude data
+  Serial.print("Altitude: ");
+  Serial.print(bme280.calcAltitude(pressure));
+  Serial.println("m");
 
+  //get and print humidity data
+  Serial.print("Humidity: ");
+  Serial.print(bme280.getHumidity());
+  Serial.println("%");
+  
+  Serial.println("\n");//add a line between output of different times.
+
+  delay(1000);
 }

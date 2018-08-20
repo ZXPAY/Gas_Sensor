@@ -1,3 +1,4 @@
+// LPG
 void MQ5_setup() {
     pinMode(MQ5_pin, INPUT);
 }
@@ -19,8 +20,8 @@ void Update_MQ5() {
     R0_sum += R0;
     
     CNT += 1;
-    if(CNT > 200){
-      R0 = R0_sum / 200;
+    if(CNT > 30){
+      R0 = R0_sum / 30;
       MQ5_flag = true;
     }
   }
@@ -37,6 +38,14 @@ void Update_MQ5() {
     MQ5_data[0] = 0;
     MQ5_data[1] = 0;
   }
+
+  dataArray[5] = MQ5_data[0];
+
+  if(dataArray[5] > 1500) LPG_Warning = 4;
+  else if(dataArray[5] > 1000) LPG_Warning = 3;
+  else if(dataArray[5] > 500) LPG_Warning = 2;
+  else if(dataArray[5] >= 200 && dataArray[5] < 500) LPG_Warning = 1;
+  else LPG_Warning = 0;
 
 //  Serial.print("time: ");
 //  Serial.print(CNT);
